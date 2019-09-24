@@ -82,7 +82,11 @@ Most compilers implement their own version of this keyword ...
 #       if defined(OPJ_STATIC) /* static library uses "hidden" */
 #           define OPJ_API    __attribute__ ((visibility ("hidden")))
 #       else
-#           define OPJ_API    __attribute__ ((visibility ("default")))
+#           if defined(EMSCRIPTEN)
+#               define OPJ_API    __attribute__((used))
+#           else
+#    			define OPJ_API    __attribute__ ((visibility ("default")))
+#			endif
 #       endif
 #       define OPJ_LOCAL  __attribute__ ((visibility ("hidden")))
 #   else
@@ -570,6 +574,12 @@ typedef struct opj_dparameters {
     unsigned int flags;
 
 } opj_dparameters_t;
+
+typedef struct opj_buffer_info {
+    OPJ_BYTE* buf;
+    OPJ_BYTE* cur;
+    OPJ_SIZE_T len;
+} opj_buffer_info_t;
 
 
 /**
@@ -1221,6 +1231,8 @@ OPJ_API opj_stream_t* OPJ_CALLCONV opj_stream_create_file_stream(
     const char *fname,
     OPJ_SIZE_T p_buffer_size,
     OPJ_BOOL p_is_read_stream);
+
+OPJ_API opj_stream_t* OPJ_CALLCONV opj_stream_create_buffer_stream (opj_buffer_info_t*, OPJ_BOOL);
 
 /*
 ==========================================================
