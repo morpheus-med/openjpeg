@@ -41,12 +41,10 @@
 /* ---------------------------------------------------------------------- */
 /* Functions to set the message handlers */
 
-OPJ_BOOL OPJ_CALLCONV opj_set_info_handler(opj_codec_t * p_codec,
-        opj_msg_callback p_callback,
-        void * p_user_data)
+OPJ_BOOL OPJ_CALLCONV opj_set_info_handler(opj_codec_t * p_codec, opj_msg_callback p_callback, void * p_user_data)
 {
-    opj_codec_private_t * l_codec = (opj_codec_private_t *) p_codec;
-    if (! l_codec) {
+    opj_codec_private_t *l_codec = (opj_codec_private_t *) p_codec;
+    if (!l_codec) {
         return OPJ_FALSE;
     }
 
@@ -56,12 +54,10 @@ OPJ_BOOL OPJ_CALLCONV opj_set_info_handler(opj_codec_t * p_codec,
     return OPJ_TRUE;
 }
 
-OPJ_BOOL OPJ_CALLCONV opj_set_warning_handler(opj_codec_t * p_codec,
-        opj_msg_callback p_callback,
-        void * p_user_data)
+OPJ_BOOL OPJ_CALLCONV opj_set_warning_handler(opj_codec_t * p_codec, opj_msg_callback p_callback, void * p_user_data)
 {
-    opj_codec_private_t * l_codec = (opj_codec_private_t *) p_codec;
-    if (! l_codec) {
+    opj_codec_private_t *l_codec = (opj_codec_private_t *) p_codec;
+    if (!l_codec) {
         return OPJ_FALSE;
     }
 
@@ -71,12 +67,10 @@ OPJ_BOOL OPJ_CALLCONV opj_set_warning_handler(opj_codec_t * p_codec,
     return OPJ_TRUE;
 }
 
-OPJ_BOOL OPJ_CALLCONV opj_set_error_handler(opj_codec_t * p_codec,
-        opj_msg_callback p_callback,
-        void * p_user_data)
+OPJ_BOOL OPJ_CALLCONV opj_set_error_handler(opj_codec_t * p_codec, opj_msg_callback p_callback, void * p_user_data)
 {
-    opj_codec_private_t * l_codec = (opj_codec_private_t *) p_codec;
-    if (! l_codec) {
+    opj_codec_private_t *l_codec = (opj_codec_private_t *) p_codec;
+    if (!l_codec) {
         return OPJ_FALSE;
     }
 
@@ -89,8 +83,7 @@ OPJ_BOOL OPJ_CALLCONV opj_set_error_handler(opj_codec_t * p_codec,
 /* ---------------------------------------------------------------------- */
 /* Buffer-based */
 
-static OPJ_SIZE_T
-opj_read_from_buffer (void* pdst, OPJ_SIZE_T len, opj_buffer_info_t* psrc)
+static OPJ_SIZE_T opj_read_from_buffer (void* pdst, OPJ_SIZE_T len, opj_buffer_info_t* psrc)
 {
     OPJ_SIZE_T n = psrc->buf + psrc->len - psrc->cur;
 
@@ -107,19 +100,19 @@ opj_read_from_buffer (void* pdst, OPJ_SIZE_T len, opj_buffer_info_t* psrc)
     return n;
 }
 
-static OPJ_SIZE_T
-opj_write_to_buffer (void* p_buffer, OPJ_SIZE_T p_nb_bytes,
-                     opj_buffer_info_t* p_source_buffer)
+static OPJ_SIZE_T opj_write_to_buffer (void* p_buffer, OPJ_SIZE_T p_nb_bytes, opj_buffer_info_t* p_source_buffer)
 {
     void* pbuf = p_source_buffer->buf;
     void* pcur = p_source_buffer->cur;
 
     OPJ_SIZE_T len = p_source_buffer->len;
+    OPJ_SIZE_T dist = 0;
+    OPJ_SIZE_T n = 0;
 
     if (0 == len)
         len = 1;
 
-    OPJ_SIZE_T dist = pcur - pbuf, n = len - dist;
+    dist = pcur - pbuf, n = len - dist;
     assert (dist <= len);
 
     while (n < p_nb_bytes) {
@@ -149,8 +142,7 @@ opj_write_to_buffer (void* p_buffer, OPJ_SIZE_T p_nb_bytes,
     return p_nb_bytes;
 }
 
-static OPJ_SIZE_T
-opj_skip_from_buffer (OPJ_SIZE_T len, opj_buffer_info_t* psrc)
+static OPJ_SIZE_T opj_skip_from_buffer (OPJ_SIZE_T len, opj_buffer_info_t* psrc)
 {
     OPJ_SIZE_T n = psrc->buf + psrc->len - psrc->cur;
 
@@ -166,8 +158,7 @@ opj_skip_from_buffer (OPJ_SIZE_T len, opj_buffer_info_t* psrc)
     return n;
 }
 
-static OPJ_BOOL
-opj_seek_from_buffer (OPJ_OFF_T len, opj_buffer_info_t* psrc)
+static OPJ_BOOL opj_seek_from_buffer (OPJ_OFF_T len, opj_buffer_info_t* psrc)
 {
     OPJ_SIZE_T n = psrc->len;
 
@@ -179,19 +170,19 @@ opj_seek_from_buffer (OPJ_OFF_T len, opj_buffer_info_t* psrc)
     return OPJ_TRUE;
 }
 
-opj_stream_t* OPJ_CALLCONV
-opj_stream_create_buffer_stream (opj_buffer_info_t* psrc, OPJ_BOOL input)
+opj_stream_t* OPJ_CALLCONV opj_stream_create_buffer_stream (opj_buffer_info_t* psrc, OPJ_BOOL input)
 {
+    opj_stream_t* ps = NULL;
     if (!psrc)
         return 0;
 
-    opj_stream_t* ps = opj_stream_default_create (input);
+    ps = opj_stream_default_create (input);
 
     if (0 == ps)
         return 0;
 
-    opj_stream_set_user_data        (ps, psrc, 0);
-    opj_stream_set_user_data_length (ps, psrc->len);
+    opj_stream_set_user_data(ps, psrc, 0);
+    opj_stream_set_user_data_length(ps, psrc->len);
 
     if (input)
         opj_stream_set_read_function (
