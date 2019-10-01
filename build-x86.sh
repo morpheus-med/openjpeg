@@ -29,11 +29,12 @@ echo "============================================="
 echo "Archiving openjpeg library"
 echo "============================================="
 (
-    echo "Branch: ${BRANCH_NAME:-dev}" >> ${DIST_DIR}/build-version.txt
-    echo "Commit: ${GIT_COMMIT:-dev}" >> ${DIST_DIR}/build-version.txt
-    echo "Job Name: ${JOB_NAME:-dev}" >> ${DIST_DIR}/build-version.txt
-    echo "Build Number: ${BUILD_NUMBER:-0}" >> ${DIST_DIR}/build-version.txt
-    echo "Release Version: ${RELEASE_VERSION}" >> ${DIST_DIR}/build-version.txt
+   echo "Branch: ${BRANCH_NAME:-dev}" >> ${DIST_DIR}/build-info.txt
+    echo "Commit: ${GIT_COMMIT:-dev}" >> ${DIST_DIR}/build-info.txt
+    echo "Job Name: ${JOB_NAME:-dev}" >> ${DIST_DIR}/build-info.txt
+    echo "Build Number: ${BUILD_NUMBER:-0}" >> ${DIST_DIR}/build-info.txt
+    echo "Release Version: ${RELEASE_VERSION}" >> ${DIST_DIR}/build-info.txt
+    echo "${RELEASE_VERSION}" >> ${DIST_DIR}/build-version.txt
 
     ARCHIVE_NAME=openjpeg:${RELEASE_VERSION}
     ARTIFACT_DIR=${DIR}/artifacts
