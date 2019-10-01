@@ -7,16 +7,13 @@ DIR=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 BUILD_DIR="${DIR}/build-wasm"
 DIST_DIR="${DIR}/dist/openjpeg-wasm"
 
-ENVIRONMENT="production";
+ENVIRONMENT=${ENVIRONMENT:-production};
 BROWSER_OUTPUT="openjpeg"
 OPTIMIZE="-Os"
 if [$ENVIRONMENT != "production"]
 then
-    OPTIMIZE="-O2 --js-opts 0 -g4 --source-map-base http://localhost:8080/"
+    OPTIMIZE="-O2 --js-opts 0 -g4"
 fi
-LDFLAGS="${OPTIMIZE}"
-CFLAGS="${OPTIMIZE}"
-CXXFLAGS="${OPTIMIZE}"
 
 start=$SECONDS
 
@@ -54,7 +51,7 @@ echo "============================================="
         -s EXPORTED_FUNCTIONS="['_jp2_decode']"
 )
 echo "============================================="
-echo "Compiling openjpeg wasmdone"
+echo "Compiling openjpeg wasm done"
 echo "============================================="
 echo
 echo "============================================="
