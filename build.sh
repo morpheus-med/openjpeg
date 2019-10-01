@@ -1,10 +1,31 @@
 #!/bin/bash
-set -eu
-set -o pipefail
+# script for building openjpeg and openjpeg wasm binaries locally
+set -euxo pipefail
 
-rm -rf {dist,build}
-mkdir dist
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=../dist ..
-make install
+echo "============================================="
+echo "Building openjpeg library"
+echo "============================================="
+(
+    IMAGE_NAME=openjpeg
+    docker build --tag ${IMAGE_NAME} - < Dockerfile.ubuntu
+    docker run --rm \
+        --volume $(pwd):/workdir \
+        ${IMAGE_NAME}
+)
+echo "============================================="
+echo "Building openjpeg library done"
+echo "============================================="
+echo
+echo "============================================="
+echo "Building openjpeg wasm bundle"
+echo "============================================="
+(
+    IMAGE_NAME=openjpeg_emscripten
+    docker build --no-cache --tag ${IMAGE_NAME} - < Dockerfile.emscripten
+    docker run --rm \
+        --volume $(pwd):/workdir \
+        ${IMAGE_NAME}
+)
+echo "============================================="
+echo "Building openjpeg library done"
+echo "============================================="
