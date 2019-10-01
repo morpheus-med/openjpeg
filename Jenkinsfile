@@ -27,7 +27,7 @@ node('6.0') {
                 consoleLogLevel: 'INFO',
                 dontWaitForConcurrentBuildCompletion: false,
                 entries: [[
-                    bucket: "morpheus-builds/openjpeg/${env.GIT_BRANCH}",
+                    bucket: "morpheus-builds/openjpeg/",
                     excludedFile: '',
                     flatten: false,
                     gzipFiles: false,
