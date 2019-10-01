@@ -36,7 +36,7 @@ node('6.0') {
                     noUploadOnFailure: true,
                     selectedRegion: 'us-west-2',
                     showDirectlyInBrowser: false,
-                    sourceFile: 'artifacts/*.tar.gz',
+                    sourceFile: 'artifacts/*.tgz',
                     storageClass: 'STANDARD',
                     uploadFromSlave: true,
                     useServerSideEncryption: true
