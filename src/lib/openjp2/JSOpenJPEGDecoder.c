@@ -70,6 +70,7 @@ int EMSCRIPTEN_KEEPALIVE jp2_decode(
     opj_codec_t* l_codec = NULL;
     opj_image_t* image = NULL;
     opj_stream_t *l_stream = NULL;
+    opj_buffer_info_t buffer_info;
 
     // detect stream type
     if (((OPJ_INT32*)data)[0] == J2K_MAGIC_NUMBER) {
@@ -85,7 +86,6 @@ int EMSCRIPTEN_KEEPALIVE jp2_decode(
     opj_set_default_decoder_parameters(&parameters);
 
     // set stream
-    opj_buffer_info_t buffer_info;
     buffer_info.buf = data;
     buffer_info.cur = data;
     buffer_info.len = data_size;
