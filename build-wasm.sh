@@ -45,6 +45,7 @@ echo "============================================="
         -s ERROR_ON_MISSING_LIBRARIES=1 \
         -s USE_PTHREADS=1 \
         -s PTHREAD_POOL_SIZE=8 \
+        -s SINGLE_FILE=1 \
         -s TOTAL_MEMORY=256MB \
         -s ENVIRONMENT="web,worker" \
         -s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall', 'writeArrayToMemory', 'getValue']" \
@@ -65,7 +66,7 @@ echo "============================================="
     echo "Release Version: ${RELEASE_VERSION}" >> ${DIST_DIR}/build-info.txt
     echo "${RELEASE_VERSION}" >> ${DIST_DIR}/build-version.txt
 
-    mv ${BUILD_DIR}/bin/${BROWSER_OUTPUT}.{js,js.mem,wasm,worker.js} ${DIST_DIR}
+    mv ${BUILD_DIR}/bin/${BROWSER_OUTPUT}.{js,worker.js} ${DIST_DIR}
 
     ARCHIVE_NAME=openjpeg-wasm:${RELEASE_VERSION}
     ARTIFACT_DIR=${DIR}/artifacts
