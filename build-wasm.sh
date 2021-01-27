@@ -46,7 +46,7 @@ echo "============================================="
         -s USE_PTHREADS=1 \
         -s PTHREAD_POOL_SIZE=8 \
         -s SINGLE_FILE=1 \
-        -s TOTAL_MEMORY=256MB \
+        -s TOTAL_MEMORY=350MB \
         -s ENVIRONMENT="web,worker" \
         -s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall', 'writeArrayToMemory', 'getValue']" \
         -s EXPORTED_FUNCTIONS="['_jp2_decode']"
